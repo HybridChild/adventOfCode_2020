@@ -36,23 +36,18 @@ for rule in allRules:
     RulesDict[thisBagColor] = contains
 
 # Find how many bags mine contains
-def recurse_bags (initial_bag):
+def recurse_bags (initial_bag, amount):
     bags_in_initial = RulesDict[initial_bag]
 
     if len(bags_in_initial) == 0:
-        return 0
+        return amount
 
-    cnt = 0
+    cnt = 1
 
     for bag in bags_in_initial:
-        tmp = recurse_bags(bag['bag_color'])
+        cnt += recurse_bags(bag['bag_color'], bag['amount'])
 
-        if (tmp == 0):
-            cnt += bag['amount']
-        else:
-            cnt += tmp * bag['amount']
+    return cnt * amount
 
-    return cnt
-
-result2 = recurse_bags(myBagColor)
+result2 = recurse_bags(myBagColor, 1) - 1 # Subtract your own bag
 print(result2)
