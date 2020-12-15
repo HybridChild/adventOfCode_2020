@@ -1,7 +1,7 @@
 # Get data from input file
-inputFile = open("day1_input.txt", "r") 
-input = inputFile.read()
-inputFile.close()
+with open("day1_input.txt", "r") as inputFile: 
+    input = inputFile.read()
+
 input = input.split()
 
 # use list comprehension to convert to integers 

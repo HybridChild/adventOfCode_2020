@@ -22,5 +22,7 @@ for line in inputFile:
         if not (items[2][idx1] == items[1] and items[2][idx2] == items[1]):
             result2 += 1
 
+inputFile.close()
+
 print(result1)
 print(result2)

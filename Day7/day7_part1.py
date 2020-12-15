@@ -1,14 +1,10 @@
 # Get data from input file
-inputFile = open("day7_input.txt", "r")
-scanInput = inputFile.read()
-inputFile.close()
+with open("day7_input.txt", "r") as inputFile:
+    scanInput = inputFile.read()
 
 allRules = scanInput.split('\n')
 Rules = []
 bagsContainingMine = []
-
-result1 = 0
-result2 = 0
 
 myBagColor = "shiny gold"
 keyWord_Color = " bags contain "

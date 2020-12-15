@@ -1,7 +1,6 @@
 # Get data from input file
-inputFile = open("day4_input.txt", "r")
-batch = inputFile.read()
-inputFile.close()
+with open("day4_input.txt", "r") as inputFile:
+    batch = inputFile.read()
 
 # Trim input
 batch = batch.split("\n\n")
@@ -139,8 +138,6 @@ for item in batch:
                     field_check = 0
 
         result2 += field_check
-
-
 
 print(result1)
 print(result2)

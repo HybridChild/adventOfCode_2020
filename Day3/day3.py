@@ -1,13 +1,12 @@
 import math
 
 # Get data from input file
-inputFile = open("day3_input.txt", "r") 
-forestMap = inputFile.read()
+with open("day3_input.txt", "r") as inputFile:
+    forestMap = inputFile.read()
+
 forestMap = forestMap.split('\n')
 
 pos = 0
-result1 = 0
-result2 = 0
 
 slopes = [[1, 1], [3, 1], [5, 1], [7, 1], [1, 2]]
 trees = []

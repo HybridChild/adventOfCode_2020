@@ -1,7 +1,6 @@
 # Get data from input file
-inputFile = open("day7_input.txt", "r")
-scanInput = inputFile.read()
-inputFile.close()
+with open("day7_input.txt", "r") as inputFile:
+    scanInput = inputFile.read()
 
 allRules = scanInput.split('\n')
 RulesDict = {}
