@@ -13,16 +13,22 @@ Adapters = sorted(Adapters)
 
 ones = 0
 threes = 0
-Differences = []
+conOnes = 0
+arrangements = 1
+Tribonacci = [1, 1, 2, 4, 7, 13, 24, 44, 81, 149]
 
 for i in range(1, len(Adapters)):
     diff = Adapters[i] - Adapters[i-1]
-    Differences.append(diff)
 
     if diff == 1:
         ones += 1
+        conOnes += 1
     elif diff == 3:
         threes += 1
+        arrangements *= Tribonacci[conOnes]
+        conOnes = 0
 
 result1 = ones * threes
+result2 = arrangements
 print(result1)
+print(result2)
