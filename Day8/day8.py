@@ -1,4 +1,3 @@
-import copy
 
 def execute(program):
     accumulator = 0
