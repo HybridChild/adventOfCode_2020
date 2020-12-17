@@ -5,6 +5,7 @@ def execute(program):
     progCnt = 0
     terminate = False
     infinite = False
+    pcHistory = []
 
     # Clear line executed key
     for i in range(0, len(program)):
@@ -23,14 +24,16 @@ def execute(program):
             program[progCnt]['exec'] += 1
 
             if line['cmd'] == 'nop':
+                pcHistory.append(progCnt)
                 progCnt += 1
             elif line['cmd'] == 'acc':
                 accumulator += line['arg']
                 progCnt += 1
             elif line['cmd'] == 'jmp':
+                pcHistory.append(progCnt)
                 progCnt += line['arg']
 
-    return {'accum':accumulator, 'err':infinite}
+    return {'accum':accumulator, 'err':infinite, 'pcHist': pcHistory}
 
 # Get data from input file
 with open('day8_input.txt', 'r') as inputFile:
@@ -45,33 +48,32 @@ for line in scanInput:
 
 # Find accumulator value prior to first repeated command
 result1 = execute(Program)
+cntList = result1['pcHist']
 result1 = result1['accum']
 print(result1)
 
-# Fix program and find accumulator value if program runs correctly
+# Fix program and find accumulator value when program runs correctly
 fixed = False
-i = 0
+i = len(cntList)-1
 
-while (not fixed) and (i < len(Program)):
-    # Change line
-    changed = False
-    AlteredProgram = copy.deepcopy(Program)
-
-    while (not changed) and (i < len(Program)):
-        if AlteredProgram[i]['cmd'] == 'nop':
-            AlteredProgram[i]['cmd'] = 'jmp'
-            changed = True
-        elif AlteredProgram[i]['cmd'] == 'jmp':
-            AlteredProgram[i]['cmd'] = 'nop'
-            changed = True
+while (not fixed) and (i >= 0):
+    suspect = Program[cntList[i]]
+    
+    # Change command
+    if suspect['cmd'] == 'nop':
+        Program[cntList[i]]['cmd'] = 'jmp'
+    elif suspect['cmd'] == 'jmp':
+        Program[cntList[i]]['cmd'] = 'nop'
         
-        i += 1
-
-    result2 = execute(AlteredProgram)
+    result2 = execute(Program)
 
     if result2['err'] == False:
         fixed = True
+    else:
+        # Reverse change
+        Program[cntList[i]]['cmd'] = suspect['cmd']
+
+    i -= 1
 
 result2 = result2['accum']
-
 print(result2)
